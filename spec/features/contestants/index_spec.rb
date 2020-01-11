@@ -11,14 +11,23 @@ RSpec.describe "As a visitor" do
     @alex = Contestant.create!(name: "Alex Moron", age: 26, hometown: "Aurora, CO", bachelorette: @sarah)
   end
 
-  it "Can see bachelorettes' information" do
+  it "can see a link to see that bachelorette's contestants" do
     visit "/bachelorettes/#{@hannah.id}"
 
-    expect(page).to have_content(@hannah.name)
-    expect(page).to have_content(@hannah.season_number)
-    expect(page).to have_content(@hannah.season_description)
+    click_link("Bachelorette's Contestants")
+    expect(current_path).to eq("/bachelorettes/#{@hannah.id}/contestants")
 
-    expect(page).to have_link("Bachelorette's Contestants")    
+    within "#contestant-#{@danny.id}" do
+      expect(page).to have_link(@danny.name)
+      expect(page).to have_content(@danny.age)
+      expect(page).to have_content(@danny.hometown)
+    end
+
+    within "#contestant-#{@daniel.id}" do
+      expect(page).to have_link(@daniel.name)
+      expect(page).to have_content(@daniel.age)
+      expect(page).to have_content(@daniel.hometown)
+    end
+    expect(page).to_not have_content(@alex.name)
   end
-
 end

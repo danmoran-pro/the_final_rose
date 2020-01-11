@@ -1,8 +1,8 @@
 <h1><%= "Bachelorette's Contestants"%></h1>
     <% @contestants.each do |contestant| %>
       <section id='contestant-<%=contestant.id%>'>
-        <%= link_to contestant.name, "contestants/contestant.id" %><br>
-        <%= contestant.age %><br>
-        <%= contestant.hometown %><br>
+        <p>Name: <%= link_to contestant.name, "contestants/contestant.id" %><br></p>
+        <p>Age: <%= contestant.age %><br></p>
+        <p>Hometown: <%= contestant.hometown %><br></p>
       </section><br>
   <% end %>
